@@ -1,3 +1,9 @@
+/***
+Usage:
+go build -ldflags "-w -s" ListAndCountFiles.go
+./ListAndCountFiles.go <<Name of file in directory>>
+
+***/
 
 package main
 

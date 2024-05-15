@@ -14,21 +14,31 @@ func main() {
 		return
 	}
 
-	// get absolute path,
+	// get absolute path from root,
 	root, err := filepath.Abs(os.Args[1]);
 	if err != nil {
 		fmt.Println("cannot get file path");
 		return
 	}
 
-	fmt.Println("Listing files in root", root);
+	fmt.Println("Listing files in root:\n", root);
 
 	var c struct {
 		file int;
 		dir	 int;
 	}
 
-	filepath.Walk
+	filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+			if info.IsDir() {
+				c.dir++;
+			} else {
+				c.file++;
+			}
 
+		fmt.Println("-",path);
+		return nil;
+	})
+
+	fmt.Printf("Total %d files and %d directories",c.file, c.dir);
 }
 

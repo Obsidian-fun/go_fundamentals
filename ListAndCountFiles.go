@@ -10,6 +10,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"io/fs"
 	"path/filepath"
 )
 
@@ -34,8 +35,8 @@ func main() {
 		dir	 int;
 	}
 
-	filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-			if info.IsDir() {
+	filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
+			if d.IsDir() {
 				c.dir++;
 			} else {
 				c.file++;

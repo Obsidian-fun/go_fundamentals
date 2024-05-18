@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"bufio"
 	"os"
+	"strings"
 	"time"
 	"log"
 	"net"
@@ -39,12 +40,12 @@ func handleConn(conn net.Conn) {
 	time.Sleep(time.Second/2);
 
 	for {
-		msg, err := r.ReadString("\n");
+		msg, err := r.ReadString('\n');
 		if err != nil {
 			log.Println("<- Message Error", msg, err);
 		}
 
-		msg = strings.TrimSpace(msg) 
+		msg = strings.TrimSpace(msg);
 		switch msg {
 			case `\q`:
 				log.Println("Exiting....");

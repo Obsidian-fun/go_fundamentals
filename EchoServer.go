@@ -7,7 +7,8 @@ import (
 )
 
 func createConn(addr *net.TCPAddr) {
-
+	defer log.Println("-> Closing");
+	conn, err := net.DialTCP("tcp", nil, addr);
 
 }
 
@@ -32,11 +33,13 @@ func main() {
 // Abillity to create several non-blocking connections to endpoint
 	go createConn(addr);
 
+// Accept client side conections to endpoint
 	conn, err := listener.AcceptTCP();
 	if err != nil {
 		log.Fatalln("<- Accept : ", os.Args[1], err);
 	}
 
+// Send a response
 	handleConn(conn);
 
 }

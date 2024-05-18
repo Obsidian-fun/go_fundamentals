@@ -25,7 +25,10 @@ func createConn(addr *net.TCPAddr) {
 			log.Println("Message error ", msg, err);
 		}
 
-
+		if _, err := conn.Write(msg); err != nil {
+			log.Println("-> Connection", err);
+			return;
+		}
 
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"log"
 	"net"
@@ -13,6 +14,18 @@ func createConn(addr *net.TCPAddr) {
 	if err != nil {
 		log.Fatalln("-> Connection:",err);
 	}
+	log.Println("Connection to ->",addr);
+
+	r := bufio.NewReader(os.Stdin);
+
+	for {
+		fmt.Print("# ");
+		msg, err := r.ReadBytes('\n');
+		if err != nil {
+			log.Println("Message error ", msg, err);
+		}
+
+
 
 }
 

@@ -5,6 +5,11 @@ import (
 	"net"
 )
 
+func createConn(addr *net.TCPAddr) {
+
+
+}
+
 func main() {
 	if len(os.Args) != 2 {
 		log.Fatalln("Please specify an address");
@@ -23,7 +28,12 @@ func main() {
 
 	go createConn(addr);
 
+	conn, err := listener.AcceptTCP();
+	if err != nil {
+		log.Fatalln("<- Accept : ", os.Args[1], err);
+	}
 
+	handleConn(conn);
 
 }
 

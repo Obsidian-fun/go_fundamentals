@@ -17,12 +17,12 @@ func main() {
 
 	addr, err := net.ResolveTCPAddr("tcp", os.Args[1]);
 	if err != nil {
-		log.Println("address in use ", addr, err);
+		log.Println("invalid address", addr, err);
 	}
 
 	listener, err := net.ListenTCP("tcp", os.Args[1]);
 	if err != nil {
-		log.Println("");
+		log.Println("Listener error : ",os.Args[1], err);
 	}
 
 

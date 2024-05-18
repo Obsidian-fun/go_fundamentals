@@ -36,8 +36,31 @@ func createConn(addr *net.TCPAddr) {
 
 func handleConn(conn net.Conn) {
 	r := bufio.NewReader(conn);
-	time.Sleep(time.second/2);
+	time.Sleep(time.Second/2);
 
+	for {
+		msg, err := r.ReadString("\n");
+		if err != nil {
+			log.Println("<- Message Error", msg, err);
+		}
+
+		msg = strings.TrimSpace(msg) 
+		switch msg {
+			case `\q`:
+				log.Println("Exiting....");
+				if err := conn.Close(); err != nil {
+					log.Println("Error closing connection");
+				}
+				time.Sleep(time.Second/2);
+				return;
+
+			case `\x`:
+				log.Println("Special message `\\x` received!");
+
+			default:
+				log.Println("Message received");
+		}
+	}
 }
 
 

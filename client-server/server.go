@@ -20,7 +20,11 @@ func main() {
 		log.Println("address in use ", addr, err);
 	}
 
-	
+	listener, err := net.ListenTCP("tcp", os.Args[1]);
+	if err != nil {
+		log.Println("");
+	}
+
 
 
 

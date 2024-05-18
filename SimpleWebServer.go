@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"bufio"
 	"os"
+	"time"
 	"log"
 	"net"
 )
@@ -29,8 +31,15 @@ func createConn(addr *net.TCPAddr) {
 			log.Println("-> Connection", err);
 			return;
 		}
+	}
+}
+
+func handleConn(conn net.Conn) {
+	r := bufio.NewReader(conn);
+	time.Sleep(time.second/2);
 
 }
+
 
 func main() {
 	if len(os.Args) != 2 {

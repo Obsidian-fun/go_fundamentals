@@ -10,6 +10,10 @@ func createConn(addr *net.TCPAddr) {
 	defer log.Println("-> Closing");
 	conn, err := net.DialTCP("tcp", nil, addr);
 
+	if err != nil {
+		log.Fatalln("-> Connection:",err);
+	}
+
 }
 
 func main() {

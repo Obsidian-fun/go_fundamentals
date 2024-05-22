@@ -9,8 +9,9 @@ import (
 
 type CustomHandler int
 
+// Counter to keep a measure of endpoint calls to /custom
 func (c *CustomHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
-		fmt.Fprint(w,"%d",*c);
+		fmt.Fprintf(w,"%d\n",*c);
 		*c++;
 }
 
@@ -18,16 +19,16 @@ func main() {
 	mux := http.NewServeMux();
 
 	mux.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request){
-		fmt.Fprintf(w,"Hello!");
+		fmt.Fprintf(w,"Hello!\n");
 	});
 
 	mux.HandleFunc("/bye", func(w http.ResponseWriter, r *http.Request){
-		fmt.Fprintf(w,"Goodbye.");
+		fmt.Fprintf(w,"Goodbye.\n");
 	});
 
 	mux.HandleFunc("/error", func(w http.ResponseWriter, r *http.Request){
 		w.WriteHeader(http.StatusInternalServerError);
-		fmt.Fprintf(w,"An Error occured [501]");
+		fmt.Fprintf(w,"An Error occured.\n");
 	});
 
 	mux.Handle("/custom", new(CustomHandler));

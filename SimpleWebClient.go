@@ -2,7 +2,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 	"net/http"
@@ -20,12 +19,12 @@ func (l logTripper) logger(r *http.Request) (*http.Response, error){
 
 func main() {
 	client := http.Client{Transport : logTripper{http.DefaultTransport}};
-	req, err := http.NewRequest("GET","https://google.com/search?q=golang+net+https");
+	req, err := http.NewRequest("GET","https://google.com/search?q=golang+net+https",nil);
 	if err != nil {
 		log.Fatal(err);
 	}
 
-	resp, err := client.do(req);
+	resp, err := client.Do(req);
 	if err != nil {
 		log.Fatal(err);
 	}

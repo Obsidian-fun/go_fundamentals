@@ -31,6 +31,7 @@ func main() {
 		fmt.Fprintf(w,"An Error occured.\n");
 	});
 
+// Notice difference between Handle and HandleFunc
 	mux.Handle("/custom", new(CustomHandler));
 
 	if err := http.ListenAndServe(":8000", mux); err != nil {

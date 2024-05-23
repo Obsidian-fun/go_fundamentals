@@ -23,7 +23,13 @@ func main() {
               `</body>`+
               `</html>`
 
+	mux := http.NewServerMux();
 
+	mux.HandleFunc(endpoint, func(w http.ResponseWriter,r *http.Request){
+		if r.Method == "GET" {
+			
+
+	}
 
 
 

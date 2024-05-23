@@ -10,7 +10,6 @@ import (
 	"net/http"
 )
 
-func main() {
 	const (
 		param = "file";
 		endpoint = "/uplaod";
@@ -22,14 +21,15 @@ func main() {
                `</form>`+
               `</body>`+
               `</html>`
+	)
 
-	mux := http.NewServerMux();
+	func main() {
+		mux := http.NewServerMux();
 
-	mux.HandleFunc(endpoint, func(w http.ResponseWriter,r *http.Request){
-		if r.Method == "GET" {
-			
+		mux.HandleFunc(endpoint, func(w http.ResponseWriter,r *http.Request){
+			if r.Method == "GET" {
+				
+			}
 
-	}
-
-
+}
 

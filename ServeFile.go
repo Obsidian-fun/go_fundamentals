@@ -21,6 +21,11 @@ func main() {
 		log.Fatalln("invalid path:", err);
 	}
 
-	http.Handle("/",
+// os.Args[1] is now root directory
+	http.Handle("/", http.FileServer(http.Dir(os.Args[1])));
+
+	if err := http.ListenAndServe(":3000",s); err != nil {
+		log.Fatal(err);
+	}
 
 }

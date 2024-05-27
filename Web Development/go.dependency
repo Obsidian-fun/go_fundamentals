@@ -1,7 +1,7 @@
 
 #Executables installed as part of project.
 
-# docker : 
+# docker : run a containerised POstgres server
 docker run --name test-postgres -e POSTGRES_PASSWORD="hello my beloved hackers :)" -p [PORT:PORT] -d postgres
 
 

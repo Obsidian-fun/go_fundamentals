@@ -1,0 +1,8 @@
+
+#Executables installed as part of project.
+
+# sqlc : Generate type safe code from SQL.
+go install github.com/sqldev/sqlc/cmd/sqlc@latest
+
+
+

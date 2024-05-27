@@ -1,6 +1,10 @@
 
 #Executables installed as part of project.
 
+# docker : 
+docker run --name test-postgres -e POSTGRES_PASSWORD="hello my beloved hackers :)" -p [PORT:PORT] -d postgres
+
+
 # sqlc : Generate type safe code from SQL.
 go install github.com/sqldev/sqlc/cmd/sqlc@latest
 

@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"os"
 	"log"
+	"io"
 )
 
 func main() {
 
-	if len(os.Args[1]) > 2 {
+	if len(os.Args[1]) < 2 {
 		log.Fatalln("provide a file to read");
 	}
 
@@ -20,7 +21,7 @@ func main() {
 
 	buf := make([]byte, 16);
 
-	for n:=0; err == nil {
+	for n:=0; err == nil; {
 		n, err = f.Read(buf);
 		if err == nil {
 			fmt.Print(string(buf[:n]));

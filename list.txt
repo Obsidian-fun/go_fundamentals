@@ -1,0 +1,126 @@
+comments
+printing
+logging
+variables
+types
+    bool
+    number
+    string
+    array
+    object
+    function
+type check
+interpolation
+if/else
+    ternary
+for
+while
+switch
+arrays
+    slicing
+    copying
+    appending
+    prepending
+uint8 arrays
+array iteration
+    looping
+    mapping
+    filtering
+    reducing
+    sorting
+buffers
+    allocate
+    big endian
+    little endian
+    hex
+    compare
+    equals
+maps
+    iteration
+objects
+functions
+default values
+destructuring
+spread operator
+rest operator
+swapping
+classes
+    constructors
+    instantiation
+    "this"
+generators
+datetime
+    parsing
+    formatting
+    unix timestamp
+timeout
+interval
+IIFE
+files
+    creating
+    opening
+    writing
+    reading
+    closing
+    deleting
+    file descriptors
+json
+    parse
+    stringify
+big numbers
+    uint
+    string
+    hex
+    buffers
+    compare
+    equals
+promises
+    then
+    all
+async/await
+streams
+    reading
+    writing
+event emitter
+
+errors
+try/catch
+exceptions
+regex
+exec (sync)
+exec (async)
+tcp server
+udp server
+http server
+url parse
+gzip
+    compress
+    decompress
+dns
+    ns lookup
+    ip lookup
+    mx lookup
+    txt lookup
+    set resolution servers
+crypto
+    sha256
+env vars
+cli args
+cli flags
+stdout
+stderr
+stdin
+modules
+    installing
+    updating
+    removing
+    importing
+    exporting
+    publishing
+stack trace
+databases
+    sqlite3
+testing
+benchmarking
+documentation
+

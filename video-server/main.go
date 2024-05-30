@@ -17,8 +17,11 @@ func main() {
 
 }
 
-func addHeaders(h http.Handler) h.http.HandlerFunc
-
-
+func addHeaders(h http.Handler) h.http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header("Access-Control-Allow-Origin","*");
+		h.ServeHttp(w, r);
+	}
+}
 
 

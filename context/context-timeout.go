@@ -17,7 +17,6 @@ func main() {
 
 	req, err := http.NewRequest()
 
-	ctx := context.Context;
 
 
 

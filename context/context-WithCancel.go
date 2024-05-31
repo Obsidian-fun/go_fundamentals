@@ -16,7 +16,20 @@ import (
 
 func main() {
 
-	ctx, cancel := context.withCancel(context.Background());
-	time.After(time.Second*5, done);
+	ctx, cancel := context.WithCancel(context.Background());
+	time.AfterFunc(time.Second*5, cancel);
 	done := ctx.Done();
+
+// Notice how case<-done gets executed after 5 seconds,
+	for i:=0; ; i++ {
+		select {
+			case <-done:
+				return
+			case <-time.After(time.Second):
+				fmt.Println("Tick ", i);
+		}
+	}
+}
+
+
 

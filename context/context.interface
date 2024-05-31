@@ -1,0 +1,20 @@
+
+type Context interface {
+	Deadline() (deadline time.Time, ok bool);
+	Done() <-chan struct{};
+	Err() error;
+	Value(key interface{}) interface{};
+}
+	
+Deadline: Returns the time when the context should be cancelled, together
+with a Boolean that is false when there is no deadline
+
+Done: Returns a receive-only channel of empty structs, which signals
+when the context should be cancelled
+
+Err: Returns nil while the done channel is open; otherwise it returns the
+cause of the context cancellation
+
+Value: Returns a value associated with a key for the current context, or nil
+if there's no value for the key
+

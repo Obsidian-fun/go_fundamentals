@@ -4,10 +4,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 )
 
-// inititalized empty struct
 type key struct{}
 
 func main() {

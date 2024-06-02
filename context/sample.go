@@ -42,9 +42,15 @@ func main() {
 			defer wg.Done();
 			req,_ := http.NewRequest("GET","http://"+address,nil);
 			if err := http.DefaultClient.Do(req.WithContext(ctx)); err != nil {
-				log.Fatalln(err);
+					log.Println(i, err);
+					return
 			}
-		}
+			o.Do(func() {ch <- i})
+		}(i)
 	}
+
+				log.Fatalln(err);
+	log.Println("Recieved", <-ch);
+
 }
 

@@ -3,8 +3,8 @@
 In this program, a client will attempt to connect to a server, and if it fails to do so within deadline
 (2 seconds in this example), it will close the connection.
 
-For demonstration, the server has been set to sleep for 5 seconds, greater than the dealine set, forcing
-the connection to be closed after 2 seconds.
+For demonstration, the server has been set to sleep for 5 seconds before it serves the root file.
+As it is greater than the dealine set, the connection will be closed after 2 seconds.
 ***/
 
 package main

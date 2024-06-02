@@ -8,10 +8,10 @@ package main
 import (
 	"context"
 	"time"
-	"rand"
 	"net/http"
+	"math/rand"
+	"sync"
 	"log"
-	"fmt"
 )
 
 func main() {
@@ -19,17 +19,17 @@ func main() {
 	// Server side
 	const address = "localhost:8000";
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		duration := time.Second*10 * time.Duration(rand.Intn(10));
 		log.Println("wait ",duration);
 		time.Sleep(duration);
 	});
 
 	go func() {
-		if err,_ := http.ListenAndServe(address,nil); err != nil {
+		if err := http.ListenAndServe(address,nil); err != nil {
 			log.Fatal(err);
 		}
-	]()
+	}()
 
 	// Client-side,
 

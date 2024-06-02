@@ -1,5 +1,11 @@
 
-// Cancel an HTTP request client side,
+/*** Cancel an HTTP request client side,
+In this program, a client will attempt to connect to a server, and if it fails to do so within deadline
+(2 seconds in this example), it will close the connection.
+
+For demonstration, the server has been set to sleep for 5 seconds, greater than the dealine set, forcing
+the connection to be closed after 2 seconds.
+***/
 
 package main
 
@@ -13,7 +19,7 @@ import (
 
 func main() {
 
-	address := "127.0.0.1:8000";
+	address := "localhost:8000";
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(time.Second*5);
@@ -24,12 +30,11 @@ func main() {
 	if err != nil {
 		fmt.Println(http.StatusNotFound,err);
 	}
-	fmt.Println(req);
 	ctx, cancel := context.WithTimeout(context.Background(),time.Second*2);
 	defer cancel();
 
 	go func() {
-		err := http.ListenAndServe(address,nil); if err != nil {
+		if err := http.ListenAndServe(address,nil); err != nil {
 			log.Fatal(err);
 		}
 	}()

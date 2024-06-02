@@ -49,8 +49,9 @@ func main() {
 		}(i)
 	}
 
-				log.Fatalln(err);
 	log.Println("Recieved", <-ch);
-
+	cancel();
+	log.Println("Cancelling");
+	wg.wait();
 }
 

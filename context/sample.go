@@ -16,12 +16,26 @@ import (
 
 func main() {
 
+	// Server side
 	const address = "localhost:8000";
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *Request) {
-		time := time.Second*10 * time.Duration(rand.Intn(10));
+		duration := time.Second*10 * time.Duration(rand.Intn(10));
+		log.Println("wait ",duration);
+		time.Sleep(duration);
 	});
 
-}
+	go func() {
+		if err,_ := http.ListenAndServe(address,nil); err != nil {
+			log.Fatal(err);
+		}
+	]()
 
+	// Client-side,
+
+	ctx, cancel := context.Context
+
+
+
+}
 

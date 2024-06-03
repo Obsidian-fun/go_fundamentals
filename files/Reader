@@ -1,0 +1,15 @@
+
+# Reader Interface..
+# In the 'io' package there is a special error called EOF which should be returned 
+# as the file ends and there is no more input available.
+
+# it is more memory efficient to keep reusing the same slice of bytes for future operations
+# as it the same limited amount of memory will be reused.
+
+type Reader interface {
+
+	Read (p []byte) (n int, err error);
+}
+
+
+

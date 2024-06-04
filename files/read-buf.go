@@ -1,3 +1,6 @@
+/***
+	Read files with a buffer..
+***/
 
 package main
 
@@ -13,7 +16,7 @@ func main() {
 		log.Fatal("specify a file to read");
 	}
 
-	f, err := os.Open(args[1]);
+	f, err := os.Open(os.Args[1]);
 	if err != nil {
 		log.Println("file not found", err);
 	}
@@ -23,11 +26,10 @@ func main() {
 	var b = make([]byte, 16);
 	for i:=0; ;i++ {
 		n, err := f.Read(b); if err == nil {
-			fmt.Printf("%s",string(b[:i]));
+			fmt.Printf("%s",string(b[:n]));
 		}
 	}
 	if err != nil || err != io.EOF {
 		fmt.Println("\n\n error reading from file\n");
 	}
-
 }

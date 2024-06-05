@@ -19,6 +19,7 @@ func main() {
 
 	for i:= range texts {
 		buf.Reset();
+// WriteString appends the content of string to buffer growing the buffer as needed
 		buf.WriteString(texts[i]);
 		fmt.Println("Length",buf.Len(), "\t capacity", buf.Cap());
 

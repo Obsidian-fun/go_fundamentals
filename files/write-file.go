@@ -15,8 +15,8 @@ func main() {
 		return
 	}
 
-	f := os.WriteFile(os.Args[1], []byte(os.Args[2]), 0644); err != nil {
-		fmt.Println("err: ",err);
+	if err := os.WriteFile(os.Args[1], []byte(os.Args[2]), 0644); err != nil {
+		fmt.Println("err: ", err);
 	}
 
 }

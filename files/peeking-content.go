@@ -57,5 +57,7 @@ func main() {
 		fmt.Println("error: ",err);
 		return
 	}
+
+	fmt.Printf("Number of lines: %d\n\n", rowCount);
 }
 

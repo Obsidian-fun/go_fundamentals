@@ -36,7 +36,14 @@ func main() {
 // Wrapping the reader in a 'buffered' reader,
 	r := bufio.NewReader(f);
 
+	var rowCount int;
 
+	for err==nil {
+		var b []byte;
+
+
+
+	}
 
 }
 

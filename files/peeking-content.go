@@ -20,6 +20,8 @@ import (
 	"fmt"
 	"log"
 	"bufio"
+	"io"
+	"os"
 )
 
 func main() {
@@ -37,13 +39,23 @@ func main() {
 	r := bufio.NewReader(f);
 
 	var rowCount int;
-
-	for err==nil {
+	for err == nil {
 		var b []byte;
-
-
-
+		for moar := true; err == nil && moar; {
+			b, moar, err = r.ReadLine();
+			if err == nil {
+				fmt.Print(string(b));
+			}
+		}
+		// Every time a line is read, moar is false
+		if err == nil {
+			fmt.Println();
+			rowCount++;
+		}
 	}
-
+	if err != nil && err != io.EOF {
+		fmt.Println("error: ",err);
+		return
+	}
 }
 

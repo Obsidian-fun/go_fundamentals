@@ -7,6 +7,7 @@ package main
 
 import (
 	"bufio"
+	"strings"
 	"log"
 	"fmt"
 	"os"
@@ -17,11 +18,24 @@ type Page struct {
 	Body []byte;
 }
 
-func saveArticle(title *Page) {
+func saveArticle(page *Page) {
 
-	var input string;
+// first, read from user input
+	input := bufio.NewReader(os.Stdin);
 
-	file, err := os.OpenFile(title.Title, os.O_WRONLY| os.O_CREATE, 0666);
+	var lines string;
+	for {
+		line := input.ReadString('\n');
+
+		if strings.TrimSpace(line) == "quit" {
+			break;
+		}
+
+		lines = lines + line + "\n";
+	}
+
+// then write user input into a file,
+	file, err := os.OpenFile(page.Title, os.O_WRONLY| os.O_CREATE, 0666);
 	if err != nil {
 		fmt.Println("cannot create file in path");
 		return
@@ -29,7 +43,7 @@ func saveArticle(title *Page) {
 
 	writer := bufio.NewWriter(file);
 
-	writer.WriteString();
+	writer.WriteString(lines);
 	writer.Flush();
 
 }
@@ -44,4 +58,15 @@ func main() {
 								}
 
 	saveArticle(&article);
+
+/*
+	fmt.Println("Choose your option [A] Read an article [B] Write an article\n\n");
+	var input string;
+	fmt.Scan(&input);
+
+	for {
+		switch input
+		case A:
+	}
+*/
 }

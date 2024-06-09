@@ -27,16 +27,16 @@ func (p *Page) saveArticle(title *Page) {
 	}
 
 	writer := bufio.NewWriter(file);
-
+	writer.WriteString(fmt.Scanln(&input));
 }
 
-func main() {]
+func main() {
 	if len(os.Args) != 2 {
 		log.Fatal("please specify the name of the article");
 	}
 
 	var article = Page {
-									Title: os.Args[1];
+									Title: os.Args[1],
 								}
 
 	saveArticle(&article);

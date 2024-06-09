@@ -9,6 +9,7 @@ import (
 	"bufio"
 	"log"
 	"fmt"
+	"os"
 )
 
 type Page struct {
@@ -16,18 +17,21 @@ type Page struct {
 	Body []byte;
 }
 
-func (p *Page) saveArticle(title *Page) {
+func saveArticle(title *Page) {
 
 	var input string;
 
-	file, err := os.OpenFile(title, os.O_WRONLY| os.O_CREATE, 0666);
+	file, err := os.OpenFile(title.Title, os.O_WRONLY| os.O_CREATE, 0666);
 	if err != nil {
 		fmt.Println("cannot create file in path");
 		return
 	}
 
 	writer := bufio.NewWriter(file);
-	writer.WriteString(fmt.Scanln(&input));
+
+	writer.WriteString();
+	writer.Flush();
+
 }
 
 func main() {

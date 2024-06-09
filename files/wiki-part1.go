@@ -25,7 +25,9 @@ func saveArticle(page *Page) {
 
 	var lines string;
 	for {
-		line := input.ReadString('\n');
+		line, err := input.ReadString('\n'); if err != nil {
+			log.Fatal(err);
+		}
 
 		if strings.TrimSpace(line) == "quit" {
 			break;

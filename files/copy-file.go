@@ -25,6 +25,20 @@ func main() {
 
 func CopyFile(destination string, source string){
 
+	src, err := os.Open(source);
+	if err != nil {
+		fmt.Println("file not found in path");
+		return
+	}
+	defer f.Close();
+
+	dst, err := os.Open(source);
+	if err != nil {
+		fmt.Println("file not found in path");
+		return
+	}
+	defer f.Close();
+
 	io.Copy(destination, source);
 	return
 }

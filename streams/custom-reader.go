@@ -4,7 +4,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"os"
 )
 
 type alphaReader struct {
@@ -21,12 +20,12 @@ func alpha(r byte) byte {
 	if (r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') {
 		return r;
 	}
-	return
+	return 0;
 }
 
 func (a *alphaReader) Read(p []byte) (int, error) {
 	if a.cur >= len(a.src)  {
-		return
+		return 0, io.EOF;
 	}
 
 	x := len(a.src) - a.cur;
@@ -46,7 +45,7 @@ func (a *alphaReader) Read(p []byte) (int, error) {
 			a.cur ++;
 	}
 	copy(p, buf);
-	return
+	return n, nil;
 }
 
 func main() {
@@ -62,8 +61,3 @@ func main() {
 	}
 	fmt.Println();
 }
-
-
-
-
-

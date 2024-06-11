@@ -15,11 +15,11 @@ func main() {
 
 	if len(os.Args) != 2 {
 		fmt.Println("please specify a file to be copied");
+		return
 	}
 
-
 	fmt.Println("Copying...");
-	CopyFile(os.Arg[1], "copied.txt");
+	CopyFile("copied.text", os.Args[1]);
 	fmt.Println("Copy Done!");
 }
 
@@ -30,16 +30,16 @@ func CopyFile(destination string, source string){
 		fmt.Println("file not found in path");
 		return
 	}
-	defer f.Close();
+	defer src.Close();
 
 	dst, err := os.Open(source);
 	if err != nil {
 		fmt.Println("file not found in path");
 		return
 	}
-	defer f.Close();
+	defer dst.Close();
 
-	io.Copy(destination, source);
+	io.Copy(dst, src);
 	return
 }
 

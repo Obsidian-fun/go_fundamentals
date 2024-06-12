@@ -8,15 +8,36 @@ import (
 	"fmt"
 )
 
+type Response struct {
+	value int;
+	err		error;
+}
+
+
 func getUserData(ctx context.Context, userID int) (int, error) {
 
 	ctx, cancel := context.WithCancel(ctx, time.Millisecond*200);
 	defer cancel();
 
-	val, err := tooSlow();
-	if err != nil {
-		return 0, err;
+	respch := make(chan Response);
+
+	go func() {
+		val, err := tooSlow();
+		respch <- Response{
+			value: val,
+			err: err,
+		}
+	}()
+
+	for {
+		select {
+			case <- ctx.Done():
+				return 0, fmt.Errorf("fetching data from third party took too long");
+			case resp := <-respch:
+				return resp.Value, resp.err;
+		}
 	}
+
 
 	return val, nil;
 }

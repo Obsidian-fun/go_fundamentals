@@ -16,7 +16,7 @@ type Response struct {
 
 func getUserData(ctx context.Context, userID int) (int, error) {
 
-	ctx, cancel := context.WithCancel(ctx, time.Millisecond*200);
+	ctx, cancel := context.WithTimeout(ctx, time.Millisecond*200);
 	defer cancel();
 
 	respch := make(chan Response);
@@ -34,12 +34,9 @@ func getUserData(ctx context.Context, userID int) (int, error) {
 			case <- ctx.Done():
 				return 0, fmt.Errorf("fetching data from third party took too long");
 			case resp := <-respch:
-				return resp.Value, resp.err;
+				return resp.value, resp.err;
 		}
 	}
-
-
-	return val, nil;
 }
 
 func tooSlow() (int , error){

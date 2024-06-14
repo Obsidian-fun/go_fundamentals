@@ -1,15 +1,38 @@
 
 // Semaphore pattern
 
-func computer() {
-	
+func compute(ch chan int) {
+	ch <- someComputation() // on completion, signal on the chanel
 } 
 
 func main() {
 
 	ch := make(chan int);
 	go compute(ch);
-
+	doSomethingElseForAWhile();	
+	result := <-ch;
 
 }
+
+
+// Here is an alternative pattern,
+
+func main(){
+
+	ch := make(chan int);
+	
+	go func() {
+	// Do something
+		ch <- 1;  // Sending a signal
+	
+	}()
+	
+	doSomethingElseForAWhile();
+	
+	result := <-ch;
+	
+}
+
+
+
 

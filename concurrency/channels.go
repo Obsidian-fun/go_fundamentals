@@ -5,8 +5,8 @@ Initialization : var ch1 chan string
 ch1 = make(chan string) or, ch1 := make(chan string);
 
 Communication : ch <- int1 (loading the channel)
-								int2 = <- ch (loading the variable with channel info)
-								<- ch (unload current value and take next value)
+								int2 = <-ch (loading the variable with channel info)
+								<-ch (unload current value and take next value)
 								
 ***/
 
@@ -34,7 +34,15 @@ func sendData(ch chan string) {
 	ch <- "Los Angeles";
 	ch <- "Beijing";
 	ch <- "Doha";
+}
 
+func getData(ch chan string) {
+	var location string;
+	fmt.Println("Now visiting.. : \n");
+	for {
+		location = <-ch;
+		fmt.Printf("%s\n", location);
+	}
 }
 
 

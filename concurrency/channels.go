@@ -24,6 +24,8 @@ func main() {
 	go sendData(ch);
 	go getData(ch);
 
+// if server does not sleep then execution will be so fast, 
+// that program finishes before goroutine logic could be implemented.
 	time.Sleep(1e9); // Sleep for a second before finishing...
 
 }

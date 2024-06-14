@@ -8,10 +8,13 @@ import (
 // time.Sleep() operated in nano seconds mo a second is time.Sleep(1e9).
 
 func main() {
-	fmt.Prinln("In main()");
+	fmt.Println("In main()");
 
 	go longWait();
 	go shortWait();
+
+	time.Sleep(10 * 1e9);
+	fmt.Println("End of main()");
 }
 
 func longWait() {
@@ -23,5 +26,5 @@ func longWait() {
 func shortWait() {
 	fmt.Println("Beginning of short wait");
 	time.Sleep(2 * 1e9);
-	fmt.Println("End of short wait");}
+	fmt.Println("End of short wait");
 }

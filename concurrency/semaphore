@@ -1,0 +1,15 @@
+
+// Semaphore pattern
+
+func computer() {
+	
+} 
+
+func main() {
+
+	ch := make(chan int);
+	go compute(ch);
+
+
+}
+

@@ -33,6 +33,25 @@ func main(){
 	
 }
 
+// Here is an example, where we wait for 2 sort-goroutines which sort a part of a slice,
 
+func main() {
+
+	done := make(chan bool);
+
+	// doSort is a lambda function, so a closure which knows when the channel is done,
+
+	doSort := func(s []int) {
+		sort(s);
+		done <- true;		
+	}();
+
+	i := pivot(s);
+	go doSort(s [:i]);
+	go doSort(s [i:]);
+
+	<-done;
+	<-done;
+}
 
 

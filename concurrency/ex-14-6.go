@@ -8,14 +8,17 @@ Program : 2 functions,
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 const N=9; // size of buffer
 type semaphore chan int;
 
 func (s semaphore) producer(n int) {
 	var number int;
-	for i:=0; i<9; i++ {
+	for i:=0; i<N; i++ {
 		number = 10+(10*i);
 		s <-number;
 	}
@@ -23,16 +26,20 @@ func (s semaphore) producer(n int) {
 
 func (s semaphore) consumer(n int) {
 	var number int;
-	for i:=0; i<1; i++ {
-		fmt.Printf("%d\n",number);
+	for i:=0; i<N; i++ {
+		number = <-s;
+		fmt.Println(number);
 	}
 }
+
 
 func main() {
 	sem := make(semaphore, N);
 
 	go sem.producer(N);
 	go sem.consumer(N);
+
+	time.Sleep(0.1*1e9);
 
 }
 

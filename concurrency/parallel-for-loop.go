@@ -35,6 +35,7 @@ func main() {
 		}(i,v)
 	}
 
+// make main wait for goroutines to finish
 	for i:=0; i<4; i++ {
 		<-sem;
 	}

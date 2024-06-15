@@ -16,6 +16,9 @@ func main() {
 type Empty interface{};
 type semaphore chan Empty;
 
-fmt.Println(reflect.TypeOf(semaphore));
+const N = 5;
+sem := make(semaphore, N);
+
+fmt.Println(reflect.TypeOf(sem));
 
 }

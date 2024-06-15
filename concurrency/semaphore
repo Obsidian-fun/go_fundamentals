@@ -66,11 +66,18 @@ func main() {
 	data := make([]float64, N);
 	result := make([]float64, N);
 
-	go func(i int, xi float64) {
-		res[i]
+	for i, xi := range data {
+		go func(i int, xi float64) {
+			res[i] = doSomething(i, xi);
+			sem <- empty;	
+		}(i, xi)
+	}
 
-	}(i, xi)
+	// Waiting for goroutines to finish,
 
+	for i:=0, i < N, i++ {
+		<-sem;
+	}
 
 }
 

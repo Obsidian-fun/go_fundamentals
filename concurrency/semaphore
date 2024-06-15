@@ -54,4 +54,27 @@ func main() {
 	<-done;
 }
 
+// And finally,
+
+func main() {
+
+	type Empty interface{};
+	var empty Empty;
+	
+	sem := make(chan Empty, N); // semaphore
+
+	data := make([]float64, N);
+	result := make([]float64, N);
+
+	go func(i int, xi float64) {
+		res[i]
+
+	}(i, xi)
+
+
+}
+
+
+
+
 

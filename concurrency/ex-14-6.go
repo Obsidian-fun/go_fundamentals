@@ -17,7 +17,6 @@ func (s semaphore) producer(n int) {
 	var number int;
 	for i:=0; i<9; i++ {
 		number = 10+(10*i);
-		fmt.Println(number);
 		s <-number;
 	}
 }
@@ -34,7 +33,6 @@ func main() {
 
 	go sem.producer(N);
 	go sem.consumer(N);
-
 
 }
 

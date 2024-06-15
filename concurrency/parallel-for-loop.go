@@ -7,7 +7,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func doSomething(base float64) float64{
@@ -21,16 +20,24 @@ func main() {
 	data := []float64{3.14,2.3434,323.123,65.5644}
 	res := make([]float64,4);
 
+	type Empty interface{};
+	var empty Empty;
+
+// Creating a semaphore (buffered channel size of data and Empty datatype, 
+	sem := make(chan Empty,4);
+
 	for i, v := range data {
 		go func(i int, v float64) {
 			// do something...for example,
 			res[i] = doSomething(v);
 			fmt.Println(res[i]);
+			sem <- empty;
 		}(i,v)
 	}
 
-	// 0.5 seconds
-	time.Sleep(0.5 * 1e9);
+	for i:=0; i<4; i++ {
+		<-sem;
+	}
 }
 
 

@@ -1,0 +1,12 @@
+
+Producer-Consumer pattern (very useful for message queues - Kafka,RabbitMQ, etc.)
+
+Produce() function which delivers the values needed by a Consume function.
+Both could be run as a separate goroutine, Produce putting the values on a channel which is read
+by Consume. The whole process could take place in an infinite loop:
+
+for {
+	Consume(Produce())
+}
+
+

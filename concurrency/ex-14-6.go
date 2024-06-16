@@ -39,7 +39,7 @@ func main() {
 	go sem.producer(N);
 	go sem.consumer(N);
 
-	time.Sleep(0.1*1e9);
+	time.Sleep(1e5);
 
 }
 

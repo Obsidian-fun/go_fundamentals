@@ -1,7 +1,7 @@
 /***
 ALSO IDIOMATIC,
 Instead of passing the channel into the function, let the function generate the channels
-
+function plays the role of a "factory"
 ***/
 
 package main
@@ -14,9 +14,9 @@ import (
 func main() {
 
 	stream := pump();
-	go suck(stream);
+	go suck(stream);  // could be "suck(pump())"
 
-	time.Sleep(1e9);
+	time.Sleep(1e5);
 }
 
 func pump() chan int{
@@ -33,7 +33,7 @@ func pump() chan int{
 }
 
 func suck(ch chan int) {
-	for i:=0; i<10; i++ {
+	for {
 		fmt.Println(<-ch);
 	}
 }

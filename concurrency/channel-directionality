@@ -1,0 +1,18 @@
+
+// Channel directionality
+
+var send_only chan<- int   // Channel can only receive data
+var recv_only <-chan int   // Channel can only send data
+
+var c = make(chan int) // bi-directional channel
+
+go source(c);
+go sink(c);
+
+func source(ch chan<-int) {  // channel will recieve data of type int
+	for {ch <- 1;}
+}
+
+func sink(ch <-chan int) {
+	for {<-ch;}
+} 

@@ -1,0 +1,10 @@
+
+// Request struct
+
+type Request struct {
+	a,      b     int;                                   
+	replyc  chan  int;  //  reply  channel  inside  the  Request
+}
+
+
+

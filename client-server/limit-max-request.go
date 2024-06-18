@@ -3,13 +3,12 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 const (
 	AvailableMemory = 10 << 20; // bit shift right, 10 MB
 	AverageMemoryPerRequest = 10 << 10; // 10 KB
-	MAXREQS = AvailableMemory/AverageMemoryPerRequest; // 1000 requests
+	MAXREQS = AvailableMemory/AverageMemoryPerRequest; // 1024 requests
 )
 
 // semaphore
@@ -20,13 +19,13 @@ type Request struct {
 	replyc chan int;
 }
 
-
 func process(request *Request){
 	// Do something..
 	fmt.Println("Request processed!");
 }
 
 func handle(request *Request){
+	fmt.Println("Handling request..");
 	process(request);
 	// signal done: enable next request to start
 	// by making 1 empty place in buffer..
@@ -47,7 +46,6 @@ func Server(queue chan *Request) {
 func main() {
 	queue := make(chan *Request);
 	go Server(queue);
-	time.Sleep(5e9);
 }
 
 

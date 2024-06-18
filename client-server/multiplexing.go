@@ -1,31 +1,29 @@
 
+package main
+
+import "fmt"
+
 // Request is a struct with a reply channel embedded inside
 
 type Request struct {
-	a       int;                                         
-	b       int;                                         
+	a       int;
+	b       int;
 	replyc  chan  int;  //  reply  channel  inside  the  Request
 }
 
 // or,
 type Reply struct {}
 
-type Request struct{
-	arg1, arg2, arg3 some_data_type;
-	replyc chan *Reply;
-}
+type binOp func(a, b int) int;
 
-type binOp func(a, b int) int; 
-
-func run(op binOp, req *Request) { 
+func run(op binOp, req *Request) {
 	req.replyc <- op(req.a, req.b)
 }
 
 func server(op binOp, service chan *Request) {
-	
 	for {
 		req := <-service; // requests arrive here
-		go run(op, req); 
+		go run(op, req);
 	}
 }
 
@@ -38,8 +36,8 @@ func startServer(op binOp) chan *Request {
 func main() {
 
 	addr := startServer(func(a, b int) int { return a + b})
-	const N=100;
-	var reqs [N]request;
+	const N=5000000;
+	var reqs [N]Request;
 
 	for i:=0; i<N; i++ {
 		req := &reqs[i];
@@ -54,7 +52,7 @@ func main() {
 		if <-reqs[i].replyc != N+2*i {
 			fmt.Println("fail at",i);
 		} else {
-				fmt.Println("Request", i " is OK!");
+				fmt.Println("Request", i, " is OK!");
 		}
 	}
 	fmt.Println("done");

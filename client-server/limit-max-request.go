@@ -1,16 +1,19 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 const (
 	AvailableMemory = 10 << 20; // bit shift right, 10 MB
-	AvergageMemoryPerRequest = 10 << 10; // 10 KB
+	AverageMemoryPerRequest = 10 << 10; // 10 KB
 	MAXREQS = AvailableMemory/AverageMemoryPerRequest; // 1000 requests
 )
 
 // semaphore
-sem := make(chan int, MAXREQS);
+var sem = make(chan int, MAXREQS);
 
 type Request struct {
 	a, b int;
@@ -31,6 +34,7 @@ func handle(request *Request){
 }
 
 func Server(queue chan *Request) {
+	fmt.Println("Server Starting...");
 	for {
 		sem <- 1;
 		// Blocks after request number 1000
@@ -43,6 +47,7 @@ func Server(queue chan *Request) {
 func main() {
 	queue := make(chan *Request);
 	go Server(queue);
+	time.Sleep(5e9);
 }
 
 

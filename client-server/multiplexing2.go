@@ -32,7 +32,7 @@ func server(op binOp, service chan *Request, quit chan bool){
 }
 
 func startServer(op binOp) (service chan *Request, quit chan bool) {
-	service = make(chan Request);
+	service = make(chan *Request);
 
 	quit = make(chan bool);
 
@@ -43,7 +43,28 @@ func startServer(op binOp) (service chan *Request, quit chan bool) {
 
 func main() {
 
+	addr, quit := startServer(func(a, b int) int{return a + b});
+	const N = 100;
+	var reqs [N]Request;
 
+	for i:=0; i<N; i++ {
+		req := &reqs[i];
+		req.a = i;
+		req.b = i + N;
+		req.replyc = make(chan int);
+		addr <- req;
+	}
+
+	// checks:
+	for i:=N-1; i >= 0 ; i-- {
+		if <-reqs[i].replyc != N + 2*i {
+			fmt.Println("fail at ", i );
+		} else {
+			fmt.Println("Request ",i ," is ok!");
+		}
+	}
+	quit<- true;
+	fmt.Println("Done");
 
 }
 

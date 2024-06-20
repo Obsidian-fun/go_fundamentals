@@ -2,6 +2,9 @@
 Here, the ch channel keeps a track of the computation, if the computation takes longer
 than 1 second, the timeout channel halts the program.
 
+In a bigger program we can remove the for loop and use 'break' instead of a 'return' to 
+continue the rest of the program.
+
 ***/
 
 package main

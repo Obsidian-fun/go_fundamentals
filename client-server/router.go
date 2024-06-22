@@ -10,17 +10,24 @@ import (
 	"net/http"
 )
 
-type Router struct{} // 
+type Router struct{
+	routes []RouteEntry;
+}
 
 type RouteEntry struct {
 	URL string;
 	method string;
-	Handler http.HandlerFunc
+	Handler http.HandlerFunc;
 }
 
 // Matching end-point,
-func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	
+func (rtr *Router) Route(url string, method string, handlerFunc http.HandlerFunc) {
+	var e := new RouteEntry {
+						URL : url,
+						Method: method,
+						Handler: handlerFunc,
+					}
+	rtr.routes = append(rtr.routes, e);
 }
 
 // 404 Not Found
@@ -32,8 +39,4 @@ func main() {
 	r := &Router{};
 	http.ListenAndServe(":8000",r);
 }
-
-
-
-
 

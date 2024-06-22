@@ -19,6 +19,7 @@ func main() {
 	input := bufio.NewReader(os.Stdin);
 	fmt.Println("What would you like to be called?");
 	clientName, _ := input.ReadString('\n');
+	fmt.Printf("Welcome %s \nFeel free to chat!\n", clientName);
 
 	trimmedClient := strings.Trim(clientName,"\n")
 
@@ -28,11 +29,13 @@ func main() {
 		trimmedMessage := strings.Trim(message,"\n");
 
 		if strings.ToLower(trimmedMessage) == "q" {
-			fmt.Println("Client Disconnected");
-			break;
+			fmt.Println("Disconnected");
+			return;
 		}
 
-		conn.Write([]byte(trimmedClient+ ":" +message));
+		conn.Write([]byte(trimmedClient + ":" + trimmedMessage));
 	}
+	defer conn.Close();
+
 }
 

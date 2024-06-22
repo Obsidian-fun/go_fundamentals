@@ -25,9 +25,15 @@ func integers() chan int {
 	return yield;
 }
 
+func generateInteger() int {
+	return <-resume;
+}
+
 func main() {
-
-
+	resume = integers();
+	fmt.Println(generateInteger());
+	fmt.Println(generateInteger());
+	fmt.Println(generateInteger());
 }
 
 

@@ -17,10 +17,9 @@ func doServerStuff(conn net.Conn){
 
 	defer conn.Close();
 
-	buf := make([]byte, 1024);
-
 	for {
-		_, err := conn.Read(buf[0:]);
+		buf := make([]byte, 1024);
+		_, err := conn.Read(buf);
 		if err == io.EOF {
 			fmt.Println("client disconnected");
 			return

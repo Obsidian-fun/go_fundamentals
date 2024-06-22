@@ -10,8 +10,20 @@ import (
 	"net/http"
 )
 
-type Router struct{}
+type Router struct{} // 
 
+type RouteEntry struct {
+	URL string;
+	method string;
+	Handler http.HandlerFunc
+}
+
+// Matching end-point,
+func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	
+}
+
+// 404 Not Found
 func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.NotFound(w, r);
 }

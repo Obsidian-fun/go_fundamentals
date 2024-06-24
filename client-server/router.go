@@ -62,7 +62,8 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func URLParam(w http.ResponseWriter, r *http.Request){
+func URLParam(r *http.Request, name string){
+
 
 }
 
@@ -75,6 +76,11 @@ func main() {
 
 	r.Route("GET","/", func(w http.ResponseWriter, r *http.Request){
 		w.Write([]byte("It works! Place your index.html here...\n\n"));
+	});
+
+	r.Route("GET",`/hello/(?P<Message>\w))`, func(w http.ResponseWriter, r *http.Request) {
+		message := URL.Param(r,"Message");
+		w.Write([]byte,"Hello " + message);
 	});
 
 	http.ListenAndServe(":8000",r);

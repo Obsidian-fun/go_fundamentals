@@ -10,25 +10,47 @@ import (
 	"net/http"
 )
 
+// hold all the route entries
 type Router struct{
 	routes []RouteEntry;
 }
 
 type RouteEntry struct {
 	URL string;
-	method string;
+	Method string;
 	Handler http.HandlerFunc;
 }
 
-// Matching end-point,
+// Add all route entries to RouteEntry struct, 
 func (rtr *Router) Route(url string, method string, handlerFunc http.HandlerFunc) {
-	var e := new RouteEntry {
+	 e := RouteEntry {
 						URL : url,
 						Method: method,
 						Handler: handlerFunc,
 					}
 	rtr.routes = append(rtr.routes, e);
 }
+
+// Match all requested routes to RouteEntry if valid,
+func (re *RouteEntry)Match(r *http.Request) {
+	if r.Method != re.Method {
+		return false;
+	}
+
+	if r.Handle != re.Handle {
+		return false;
+	}
+
+	return true;
+}
+
+
+
+
+
+
+
+
 
 // 404 Not Found
 func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {

@@ -45,15 +45,14 @@ func (re *RouteEntry)Match(r *http.Request) {
 }
 
 
-
-
-
-
-
-
-
-// 404 Not Found
+// Search for routes, else 404
 func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
+
+
+
+
+
 	http.NotFound(w, r);
 }
 

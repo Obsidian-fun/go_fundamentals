@@ -16,28 +16,28 @@ type Router struct{
 }
 
 type RouteEntry struct {
-	URL string;
 	Method string;
+	Path string;
 	Handler http.HandlerFunc;
 }
 
 // Add all route entries to RouteEntry struct, 
-func (rtr *Router) Route(url string, method string, handlerFunc http.HandlerFunc) {
+func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFunc) {
 	 e := RouteEntry {
-						URL : url,
 						Method: method,
+						Path: path,
 						Handler: handlerFunc,
 					}
 	rtr.routes = append(rtr.routes, e);
 }
 
 // Match all requested routes to RouteEntry if valid,
-func (re *RouteEntry)Match(r *http.Request) {
+func (re *RouteEntry)Match(r *http.Request) bool{
 	if r.Method != re.Method {
 		return false;
 	}
 
-	if r.Handle != re.Handle {
+	if r.URL.Path != re.Path {
 		return false;
 	}
 
@@ -53,7 +53,7 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		e.HandlerFunc.ServeHTTP(w, r);
+		e.Handler.ServeHTTP(w, r);
 		return
 	}
 
@@ -63,6 +63,11 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	r := &Router{};
+
+	r.Route("GET","/", func(w http.ResponseWriter, r *http.Request){
+		w.Write([]byte("It works! Place your index.html here...\n\n"));
+	});
+
 	http.ListenAndServe(":8000",r);
 }
 

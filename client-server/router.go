@@ -44,15 +44,20 @@ func (re *RouteEntry)Match(r *http.Request) {
 	return true;
 }
 
-
 // Search for routes, else 404
-func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
+	for _, e := range rtr.routes {
+		match := e.Match(r);
+		if !match {
+			continue
+		}
 
+		e.HandlerFunc.ServeHTTP(w, r);
+		return
+	}
 
-
-
-
+	// If not matched, return 404
 	http.NotFound(w, r);
 }
 

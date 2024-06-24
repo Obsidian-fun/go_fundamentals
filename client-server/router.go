@@ -1,6 +1,6 @@
 /***
 Implemention of HTTP router functionality in go,
-Credit: https://codesalad.dev/blog/how-to-build-a-go-router-from-scratch-3
+Credit: Gregory Schier, https://codesalad.dev/blog/how-to-build-a-go-router-from-scratch-3
 
 ***/
 
@@ -52,7 +52,7 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if !match {
 			continue
 		}
-
+		// Got the match, serving..
 		e.Handler.ServeHTTP(w, r);
 		return
 	}
@@ -60,6 +60,15 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// If not matched, return 404
 	http.NotFound(w, r);
 }
+
+
+func URLParam(w http.ResponseWriter, r *http.Request){
+
+}
+
+
+
+
 
 func main() {
 	r := &Router{};

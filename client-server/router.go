@@ -8,6 +8,7 @@ package main
 
 import (
 	"net/http"
+	"regexp"
 )
 
 // hold all the route entries
@@ -32,7 +33,7 @@ func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFun
 }
 
 // Match all requested routes to RouteEntry if valid,
-func (re *RouteEntry)Match(r *http.Request) bool{
+func (re *RouteEntry) Match(r *http.Request) bool{
 	if r.Method != re.Method {
 		return false;
 	}
@@ -62,14 +63,13 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func URLParam(r *http.Request, name string){
+func URLParam(r *http.Request, name string) string{
+	ctx := r.Context();
 
+	param := ctx.Value(name).map([string]string);
 
+	return
 }
-
-
-
-
 
 func main() {
 	r := &Router{};
@@ -79,7 +79,7 @@ func main() {
 	});
 
 	r.Route("GET",`/hello/(?P<Message>\w))`, func(w http.ResponseWriter, r *http.Request) {
-		message := URL.Param(r,"Message");
+		message := URLParam(r,"Message");
 		w.Write([]byte,"Hello " + message);
 	});
 

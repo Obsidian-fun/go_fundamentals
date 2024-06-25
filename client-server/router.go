@@ -9,6 +9,7 @@ package main
 import (
 	"net/http"
 	"regexp"
+	"context"
 )
 
 // hold all the route entries
@@ -18,7 +19,7 @@ type Router struct{
 
 type RouteEntry struct {
 	Method string;
-	Path string;
+	Path *regexp.Regexp;
 	Handler http.HandlerFunc;
 }
 
@@ -32,17 +33,22 @@ func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFun
 	rtr.routes = append(rtr.routes, e);
 }
 
+// TODO: Review this code
 // Match all requested routes to RouteEntry if valid,
 func (re *RouteEntry) Match(r *http.Request) bool{
-	if r.Method != re.Method {
-		return false;
+	match := re.Path.FindStringSubmatch(r.URL.Path);
+	if match == nil {
+		return nil;
 	}
 
-	if r.URL.Path != re.Path {
-		return false;
-	}
+	// Create  a map to store URL parameters,
+	params := make(map([string]string));
+	groupNames := re.Path.SubExpNames();
 
-	return true;
+	for i, group := range match {
+		
+
+	}
 }
 
 // Search for routes, else 404
@@ -57,19 +63,17 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		e.Handler.ServeHTTP(w, r);
 		return
 	}
-
 	// If not matched, return 404
 	http.NotFound(w, r);
 }
 
-
 func URLParam(r *http.Request, name string) string{
 	ctx := r.Context();
+	params := ctx.Value(name).map([string]string);
 
-	param := ctx.Value(name).map([string]string);
-
-	return
+	return params[name];
 }
+
 
 func main() {
 	r := &Router{};
@@ -79,7 +83,6 @@ func main() {
 	});
 
 	r.Route("GET",`/hello/(?P<Message>\w))`, func(w http.ResponseWriter, r *http.Request) {
-		message := URLParam(r,"Message");
 		w.Write([]byte,"Hello " + message);
 	});
 

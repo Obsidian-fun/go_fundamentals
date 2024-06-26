@@ -86,8 +86,8 @@ func main() {
 		w.Write([]byte("It works! Place your index.html here...\n\n"));
 	});
 
-	r.Route("GET",`/hello/(?P<Message>\w)`, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello " + URLParam(r, "Message")));
+	r.Route("GET",`/hello/(?P<Message>\w+)`, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello " + URLParam(r, "Message") + "\n"));
 	});
 
 	http.ListenAndServe(":8000",r);

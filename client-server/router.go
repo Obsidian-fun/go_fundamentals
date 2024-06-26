@@ -9,7 +9,7 @@ package main
 import (
 	"net/http"
 	"regexp"
-//	"context"
+	"context"
 )
 
 // hold all the route entries
@@ -29,10 +29,10 @@ func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFun
 	exactPath := regexp.MustCompile("^" + path + "$");
 
 	 e := RouteEntry {
-						Method: method,
-						Path: exactPath,
-						Handler: handlerFunc,
-					}
+					Method:   method,
+					Path:     exactPath,
+					Handler:  handlerFunc,
+				}
 	rtr.routes = append(rtr.routes, e);
 }
 
@@ -62,8 +62,9 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if params == nil{
 			continue
 		}
-		// Got the match, serving..
-		e.Handler.ServeHTTP(w, r);
+		// Create new request with params stored in context,
+		ctx := context.WithValue(r.Context(),"params", params);
+		e.Handler.ServeHTTP(w, r.WithContext(ctx));
 		return
 	}
 	// If not matched, return 404
@@ -85,7 +86,7 @@ func main() {
 		w.Write([]byte("It works! Place your index.html here...\n\n"));
 	});
 
-	r.Route("GET",`/hello/(?P<Message>\w))`, func(w http.ResponseWriter, r *http.Request) {
+	r.Route("GET",`/hello/(?P<Message>\w)`, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello " + URLParam(r, "Message")));
 	});
 

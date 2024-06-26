@@ -9,7 +9,7 @@ package main
 import (
 	"net/http"
 	"regexp"
-	"context"
+//	"context"
 )
 
 // hold all the route entries
@@ -25,9 +25,12 @@ type RouteEntry struct {
 
 // Add all route entries to RouteEntry struct, 
 func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFunc) {
+// ^ in regex indicates the start of a string and $ indicates the end
+	exactPath := regexp.MustCompile("^" + path + "$");
+
 	 e := RouteEntry {
 						Method: method,
-						Path: path,
+						Path: exactPath,
 						Handler: handlerFunc,
 					}
 	rtr.routes = append(rtr.routes, e);
@@ -35,28 +38,28 @@ func (rtr *Router) Route(method string, path string, handlerFunc http.HandlerFun
 
 // TODO: Review this code
 // Match all requested routes to RouteEntry if valid,
-func (re *RouteEntry) Match(r *http.Request) bool{
+func (re *RouteEntry) Match(r *http.Request) map[string]string{
 	match := re.Path.FindStringSubmatch(r.URL.Path);
 	if match == nil {
 		return nil;
 	}
 
 	// Create  a map to store URL parameters,
-	params := make(map([string]string));
-	groupNames := re.Path.SubExpNames();
+	params := make(map[string]string);
+	groupNames := re.Path.SubexpNames();
 
 	for i, group := range match {
-		
-
+		params[groupNames[i]] = group;
 	}
+	return params;
 }
 
 // Search for routes, else 404
 func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	for _, e := range rtr.routes {
-		match := e.Match(r);
-		if !match {
+		params := e.Match(r);
+		if params == nil{
 			continue
 		}
 		// Got the match, serving..
@@ -69,7 +72,7 @@ func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func URLParam(r *http.Request, name string) string{
 	ctx := r.Context();
-	params := ctx.Value(name).map([string]string);
+	params := ctx.Value("params").(map[string]string);
 
 	return params[name];
 }
@@ -83,7 +86,7 @@ func main() {
 	});
 
 	r.Route("GET",`/hello/(?P<Message>\w))`, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte,"Hello " + message);
+		w.Write([]byte("Hello " + URLParam(r, "Message")));
 	});
 
 	http.ListenAndServe(":8000",r);

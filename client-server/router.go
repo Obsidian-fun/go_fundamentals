@@ -8,6 +8,7 @@ package main
 
 import (
 	"net/http"
+	"log"
 	"regexp"
 	"context"
 )
@@ -56,6 +57,12 @@ func (re *RouteEntry) Match(r *http.Request) map[string]string{
 
 // Search for routes, else 404
 func (rtr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Println("Error:", r)
+			http.Error(w, "Uh oh!", http.StatusInternalServerError);
+		}
+	}()
 
 	for _, e := range rtr.routes {
 		params := e.Match(r);
@@ -88,6 +95,10 @@ func main() {
 
 	r.Route("GET",`/hello/(?P<Message>\w+)`, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello " + URLParam(r, "Message") + "\n"));
+	});
+
+	r.Route("GET","/panic", func(w http.ResponseWriter, r *http.Request) {
+		panic("Something Bad happened!");
 	});
 
 	http.ListenAndServe(":8000",r);

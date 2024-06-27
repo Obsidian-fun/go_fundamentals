@@ -3,13 +3,14 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"io"
 )
 
 func CheckError(err error){
 	if err != nil {
-		fmt.Println(err);
+		log.Fatalf("Get: %v", err);
 	}
 }
 

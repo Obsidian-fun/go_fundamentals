@@ -23,8 +23,6 @@ func main() {
 
 		fmt.Println(url+ ":"+ string(resp.Status));
 	}
-
-
 }
 
 

@@ -30,15 +30,23 @@ func Greetings(w http.ResponseWriter, r *http.Request){
 }
 
 func FormServer(w http.ResponseWriter, r *http.Request) {
-	
 
+	w.Header().Set("Content-Type","text/HTML");
+	switch r.Method {
+		case "GET":
+			io.WriteString(w,form);
+		case "POST":
+			r.ParseForm();
+			value := r.FormValue("in");
+			io.WriteString(w, value);
+	}
 }
 
 func main() {
 	r := http.NewServeMux();
 
 	r.HandleFunc("/", Greetings);
-	r.Handle("/form", FormServer);
+	r.HandleFunc("/form", FormServer);
 
 	err := http.ListenAndServe(":3000",r); if err != nil {
 		log.Fatal(err);

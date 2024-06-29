@@ -1,5 +1,5 @@
 /***
-Allowing the user to voluntair 
+Shuts down the channel more cleanly by signalling a 'quit' channel
 
 ***/
 
@@ -44,7 +44,7 @@ func startServer(op binOp) (service chan *Request, quit chan bool) {
 func main() {
 
 	addr, quit := startServer(func(a, b int) int{return a + b});
-	const N = 100;
+	const N = 1000000;
 	var reqs [N]Request;
 
 	for i:=0; i<N; i++ {
@@ -67,10 +67,6 @@ func main() {
 	fmt.Println("Done");
 
 }
-
-
-
-
 
 
 

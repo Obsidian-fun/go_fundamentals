@@ -36,7 +36,7 @@ func startServer(op binOp) chan *Request {
 func main() {
 
 	addr := startServer(func(a, b int) int { return a + b})
-	const N=5000000;
+	const N=1000000;
 	var reqs [N]Request;
 
 	for i:=0; i<N; i++ {

@@ -19,6 +19,7 @@ func main() {
 	count := 0; // count the words
 
 	for scanner.Scan() {	
+		fmt.Println(scanner.Text());
 		count++;
 	}
 

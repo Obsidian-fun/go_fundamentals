@@ -13,7 +13,7 @@ import (
 
 func main() {
 	input := "Now is the winter of our discontent,\nMade glorious summer by this sun of York.\n"
-	scanner := bufio.NewScanner(input);
+	scanner := bufio.NewScanner(strings.NewReader(input));
 
 	scanner.Split(bufio.ScanWords);
 	count := 0; // count the words
@@ -25,6 +25,8 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		fmt.Println(os.Stderr, "error reading input: ", err);
 	}
+
+	fmt.Printf("Words counted: %d\n", count);
 
 
 }

@@ -1,3 +1,7 @@
+/***
+Source: go docs, "pkg.go.dev/bufio"
+***/
+
 package main
 
 import (

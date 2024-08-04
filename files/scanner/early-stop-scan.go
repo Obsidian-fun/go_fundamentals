@@ -29,8 +29,17 @@ func main() {
 		return i+1, data[:i], nil
 	}
 
-	scanner := bufio.NewScanner(input);
+	input := "1,2,3,4,STOP,5,6,7"
+
+	scanner := bufio.NewScanner(strings.NewReader(input));
+	scanner.Split(onComma);
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text());
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "error reading input:", err);
+	}
 }
-
-
 

@@ -29,7 +29,7 @@ func main() {
 		return i+1, data[:i], nil
 	}
 
-	input := "1,2,3,4,STOP,5,6,7"
+	input := "1....2,3,4,STOP,5,6,7"
 
 	scanner := bufio.NewScanner(strings.NewReader(input));
 	scanner.Split(onComma);

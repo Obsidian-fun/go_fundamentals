@@ -13,6 +13,8 @@ import (
 )
 
 func main() {
+
+// onComma detects comma ",", and the string "STOP"
 	onComma := func(data []byte, atEOF bool) (advance int, token []byte, err error) {
 		i := bytes.IndexByte(data, ',');
 		if i == -1 {
@@ -21,13 +23,13 @@ func main() {
 			}
 			return 0, data, bufio.ErrFinalToken
 		}
-
-
-
+		if string(data[:i]) == "STOP" {
+			return i+1, nil, bufio.ErrFinalToken
+		}
+		return i+1, data[:i], nil
 	}
 
-
-	scanner := bufio.NewScanner();
+	scanner := bufio.NewScanner(input);
 }
 
 

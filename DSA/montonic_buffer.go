@@ -26,19 +26,6 @@ func NewMonotonicBuffer(size int) *MonotonicBuffer {
 func (b *MonotonicBuffer) Add(val int) {
         b._max[0] = max(b._max[0], val)
         b._min[0] = min(b._min[0], val)
-
-        for i := 1; i < len(b._max); i++ {
-                b._max[i] = b._max[i-1]
-                b._min[i] = b._min[i-1]
-
-                if val > b._max[i] {
-                        b._max[i] = val
-                }
-
-                if val < b._min[i] {
-                        b._min[i] = val
-                }
-        }
 }
 
 func (b *MonotonicBuffer) GetMax() int {
@@ -56,6 +43,8 @@ func main() {
         buf.Add(10)
         buf.Add(15)
         buf.Add(-1)
+				buf.Add(45)
+				buf.Add(-23)
 
         fmt.Println("Max:", buf.GetMax())  // Output: Max: 15
         fmt.Println("Min:", buf.GetMin())  // Output: Min: -1

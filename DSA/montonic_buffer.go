@@ -12,8 +12,8 @@ import (
 )
 
 type MonotonicBuffer struct {
-        max  []int
-        min  []int
+        _max  []int
+        _min  []int
 }
 
 func NewMonotonicBuffer(size int) *MonotonicBuffer {
@@ -27,7 +27,7 @@ func (b *MonotonicBuffer) Add(val int) {
         b._max[0] = max(b._max[0], val)
         b._min[0] = min(b._min[0], val)
 
-        for i := 1; i < len(b.max); i++ {
+        for i := 1; i < len(b._max); i++ {
                 b._max[i] = b._max[i-1]
                 b._min[i] = b._min[i-1]
 

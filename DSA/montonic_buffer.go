@@ -18,35 +18,35 @@ type MonotonicBuffer struct {
 
 func NewMonotonicBuffer(size int) *MonotonicBuffer {
         return &MonotonicBuffer{
-                max: make([]int, size),
-                min: make([]int, size),
+                _max: make([]int, size),
+                _min: make([]int, size),
         }
 }
 
 func (b *MonotonicBuffer) Add(val int) {
-        b.max[0] = max(b.max[0], val)
-        b.min[0] = min(b.min[0], val)
+        b._max[0] = max(b._max[0], val)
+        b._min[0] = min(b._min[0], val)
 
         for i := 1; i < len(b.max); i++ {
-                b.max[i] = b.max[i-1]
-                b.min[i] = b.min[i-1]
+                b._max[i] = b._max[i-1]
+                b._min[i] = b._min[i-1]
 
-                if val > b.max[i] {
-                        b.max[i] = val
+                if val > b._max[i] {
+                        b._max[i] = val
                 }
 
-                if val < b.min[i] {
-                        b.min[i] = val
+                if val < b._min[i] {
+                        b._min[i] = val
                 }
         }
 }
 
 func (b *MonotonicBuffer) GetMax() int {
-        return b.max[0]
+        return b._max[0]
 }
 
 func (b *MonotonicBuffer) GetMin() int {
-        return b.min[0]
+        return b._min[0]
 }
 
 func main() {

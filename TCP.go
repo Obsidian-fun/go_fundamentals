@@ -13,14 +13,12 @@ import (
 func createConn(addr *net.TCPAddr) {
 	defer log.Println("-> Closing");
 	conn, err := net.DialTCP("tcp", nil, addr);
-
 	if err != nil {
 		log.Fatalln("-> Connection:",err);
 	}
 	log.Println("Connection to ->",addr);
 
 	r := bufio.NewReader(os.Stdin);
-
 	for {
 		fmt.Print("# ");
 		msg, err := r.ReadBytes('\n');
@@ -38,7 +36,6 @@ func createConn(addr *net.TCPAddr) {
 func handleConn(conn net.Conn) {
 	r := bufio.NewReader(conn);
 	time.Sleep(time.Second/2);
-
 	for {
 		msg, err := r.ReadString('\n');
 		if err != nil {

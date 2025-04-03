@@ -10,8 +10,6 @@ Go Optimizations 101, pg 12
 package main
 
 import (
-	"fmt"
-
 	"unsafe"
 )
 
@@ -24,7 +22,7 @@ type T1 struct {
 
 func main() {
 
-	fmt.Println(unsafe.Sizeof(T1{})); // returns 32 bytes instead of 28 , padded 4 extra bytes
+	print(unsafe.Sizeof(T1{})); // returns 32 bytes instead of 28 , padded 4 extra bytes
 
 }
 

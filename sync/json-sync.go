@@ -8,25 +8,23 @@ each goroutine accesses
 package main
 
 import (
-	"fmt"
+	"io"
 	"sync"
 	"encoding/json"
 )
 
 var encoderPool = sync.Pool {
 		New: func() interface{} {
-					return json.NewEncoder;
+					return json.NewEncoder(nil);
 		},
 	}
 
 func GetEncoder(w io.Writer) *json.Encoder {
 	enc := encoderPool.Get().(*json.Encoder);
-	enc.Reset(w);
 	return enc
 }
 
 func ReturnEncoder(enc *json.Encoder) {
-	enc.Reset(nil); // reset state
 	encoderPool.Put(enc);
 }
 

@@ -20,6 +20,12 @@ var orderPool = sync.Pool {
 	},
 }
 
+// in the request handler,
+func HandleProcess() {
+	order := orderPool.Get().(*Order);
+	defer orderPool.Put(order);
+
+}
 
 
 func main() {

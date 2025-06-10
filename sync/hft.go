@@ -24,7 +24,6 @@ var orderPool = sync.Pool {
 func HandleProcess() {
 	order := orderPool.Get().(*Order);
 	defer orderPool.Put(order);
-
 }
 
 

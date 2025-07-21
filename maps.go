@@ -19,6 +19,10 @@ func main() {
 
 	fmt.Printf("Map literal at \"one\" is : %d\n", mapLit["one"]);
 	fmt.Printf("Map Assigned at \"two\" is : %d\n", mapAssigned["two"]);
+
+	delete(mapCreated,"Key1");
+	fmt.Println(mapCreated);
+
 }
 
 
